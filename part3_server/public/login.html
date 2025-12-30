@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login JWT</title>
+</head>
+<body>
+    <h1>Login Page</h1>
+    <form method="post" action="http://localhost:89/login">
+        Username: <input name="username" type="text" value="guest"><br><br>
+        Password: <input name="password" type="password" value="123456"><br><br>
+        <input type="submit" value="Login">
+    </form>
+
+    <script>
+        document.forms[0].onsubmit = async (e) => {
+            e.preventDefault(); // מניעת רענון הדף
+
+            // איסוף הנתונים מהטופס
+            const data = {
+                username: document.getElementsByTagName('input')[0].value,
+                password: document.getElementsByTagName('input')[1].value
+            };
+
+            // שליחת בקשת התחברות (POST)
+            const res = await fetch('http://localhost:89/login', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            // אם ההתחברות נכשלה
+            if (res.status != 201) {
+                alert('Invalid username and/or password');
+            } else {
+                // אם הצליחה - מקבלים את ה-Token
+                const json = await res.json();
+                
+                // כעת משתמשים ב-Token כדי לגשת לנתיב המוגן
+                const resSecret = await fetch('http://localhost:89/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': 'bearer ' + json.token // הוספת ה-Token לכותרת
+                    }
+                });
+
+                const result = await resSecret.json();
+                alert('The secret data is: ' + result.data);
+            }
+        }
+    </script>
+</body>
+</html>
