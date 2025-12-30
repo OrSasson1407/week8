@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif; /* שינוי בונוס: פונט נעים יותר */
+    background-color: #f4f4f4;      /* שינוי בונוס: צבע רקע עדין לעמוד */
+}
+
+button {
+    background-color: #00FF00;
+    color: #FF0000;
+    font-size: 18pt;
+    margin: 10px;
+    
+    /* שינוי 1 ב-CSS: עיגול פינות */
+    border-radius: 12px;
+    border: 2px solid #333;
+    cursor: pointer;
+    transition: transform 0.2s; /* הכנה לאנימציה */
+}
+
+/* שינוי 2 ב-CSS: אפקט מעבר עכבר */
+button:hover {
+    transform: scale(1.1); /* הכפתור גדל ב-10% */
+}
+
+#danger-btn {
+    background-color: #0000FF;
+    /* שינוי 3 ב-CSS: שינוי צבע טקסט ללבן */
+    color: white; 
+}
+
+.green-bg {
+    background-color: #000000;
+}
